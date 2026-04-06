@@ -1,3 +1,5 @@
+# 参考：https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+# 仓库 Settings → Pages → Source 必须选「GitHub Actions」
 name: Deploy GitHub Pages
 
 on:
@@ -15,8 +17,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  # 构建 + 上传 + 部署放在同一 job，与官方「自定义构建」示例一致，避免 artifact 在 job 间传递异常
+  github-pages:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,8 +41,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 项目站：https://<owner>.github.io/<repo>/ ，须在同一 shell 中 export SITE_URL / BASE_URL 再构建
-      - name: Build site
+      - name: Build Astro site
         run: |
           OWNER="${{ github.repository_owner }}"
           REPO="${{ github.event.repository.name }}"
@@ -54,19 +59,15 @@ jobs:
       - name: Add .nojekyll
         run: touch dist/.nojekyll
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
           include-hidden-files: true
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
