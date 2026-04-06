@@ -27,16 +27,10 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		// 子菜单
 		children: [
 			{
-				name: "GitHub",
-				url: "https://github.com/CuteLeaf/Firefly",
+				name: "本仓库",
+				url: "https://github.com/violet-summer/tech-blog",
 				external: true,
 				icon: "fa7-brands:github",
-			},
-			{
-				name: "Bilibili",
-				url: "https://space.bilibili.com/38932988",
-				external: true,
-				icon: "fa7-brands:bilibili",
 			},
 		],
 	});
