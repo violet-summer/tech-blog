@@ -2,7 +2,7 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: [ master ]
+    branches: [master, main]
   workflow_dispatch:
 
 permissions:
@@ -35,8 +35,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 项目站须设置 base=/仓库名/；必须在「同一 shell」里 export 后再 build，避免仅写入 GITHUB_ENV 时偶发未传入 Astro
-      - name: Build site (with SITE_URL / BASE_URL)
+      # 项目站：https://<owner>.github.io/<repo>/ ，须在同一 shell 中 export SITE_URL / BASE_URL 再构建
+      - name: Build site
         run: |
           OWNER="${{ github.repository_owner }}"
           REPO="${{ github.event.repository.name }}"
@@ -49,7 +49,7 @@ jobs:
           echo "SITE_URL=${SITE_URL}"
           echo "BASE_URL=${BASE_URL}"
           pnpm run build
-          test -f dist/index.html || { echo "build did not produce dist/index.html"; exit 1; }
+          test -f dist/index.html || { echo "missing dist/index.html"; exit 1; }
 
       - name: Add .nojekyll
         run: touch dist/.nojekyll
@@ -58,7 +58,6 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
-          # v4 默认不包含点文件；Jekyll 跳过依赖根目录的 .nojekyll
           include-hidden-files: true
 
   deploy:
