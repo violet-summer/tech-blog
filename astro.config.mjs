@@ -33,21 +33,15 @@ import rehypeEmailProtection from "./src/plugins/rehype-email-protection.mjs";
 import rehypeFigure from "./src/plugins/rehype-figure.mjs";
 
 // https://astro.build/config
-// 本地开发默认根路径；CI（如 GitHub Pages 项目站）通过环境变量 BASE_URL / SITE_URL 注入子路径与站点地址
-const baseFromEnv = process.env.BASE_URL;
-const base =
-	baseFromEnv === undefined || baseFromEnv === "" || baseFromEnv === "/"
-		? "/"
-		: (() => {
-				const s = String(baseFromEnv).trim();
-				const withLead = s.startsWith("/") ? s : `/${s}`;
-				return withLead.endsWith("/") ? withLead : `${withLead}/`;
-			})();
+// GitHub Pages 项目站地址为 https://<用户>.github.io/<仓库名>/ ，须设置 base。
+// 此处写死本仓库路径，不依赖 CI 的 BASE_URL/SITE_URL，避免 Actions 未注入时 base 退回 "/" 导致线上无法加载资源。
+// 若重命名仓库，请同步修改下方路径。本地开发请访问 http://localhost:4321/tech-blog/
+const siteBase = "/tech-blog/";
 
 export default defineConfig({
-	site: process.env.SITE_URL || siteConfig.site_url,
+	site: siteConfig.site_url,
 
-	base,
+	base: siteBase,
 	trailingSlash: "always",
 	integrations: [
 		swup({

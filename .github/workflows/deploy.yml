@@ -43,16 +43,6 @@ jobs:
 
       - name: Build Astro site
         run: |
-          OWNER="${{ github.repository_owner }}"
-          REPO="${{ github.event.repository.name }}"
-          export SITE_URL="https://${OWNER}.github.io"
-          if [ "$REPO" = "${OWNER}.github.io" ]; then
-            export BASE_URL="/"
-          else
-            export BASE_URL="/${REPO}/"
-          fi
-          echo "SITE_URL=${SITE_URL}"
-          echo "BASE_URL=${BASE_URL}"
           pnpm run build
           test -f dist/index.html || { echo "missing dist/index.html"; exit 1; }
 
