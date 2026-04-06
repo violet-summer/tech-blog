@@ -9,5 +9,9 @@ export async function GET() {
 		published: post.data.published.getTime(),
 	}));
 
-	return new Response(JSON.stringify(allPostsData));
+	return new Response(JSON.stringify(allPostsData), {
+		headers: {
+			"Content-Type": "application/json; charset=utf-8",
+		},
+	});
 }

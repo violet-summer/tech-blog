@@ -61,8 +61,27 @@ export default defineConfig({
 			updateHead: true,
 			updateBodyClass: false,
 			globalInstance: true,
-			// 滚动相关配置优化
-			resolveUrl: (url) => url,
+			// 子路径部署时必须补全 base，否则 Swup 会按站点根解析，导致请求落到错误路径（大量 404）
+			resolveUrl: (href) => {
+				if (typeof href !== "string") return href;
+				const u = href.trim();
+				if (
+					u.startsWith("http://") ||
+					u.startsWith("https://") ||
+					u.startsWith("mailto:") ||
+					u.startsWith("tel:") ||
+					u.startsWith("data:") ||
+					u.startsWith("#")
+				) {
+					return href;
+				}
+				if (u.startsWith("//")) return href;
+				if (u.startsWith(siteBase)) return href;
+				if (u.startsWith("/")) {
+					return `${siteBase.replace(/\/$/, "")}${u}`;
+				}
+				return href;
+			},
 			animateHistoryBrowsing: false,
 			skipPopStateHandling: (event) => {
 				// 跳过锚点链接的处理，让浏览器原生处理
