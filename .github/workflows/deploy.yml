@@ -1,5 +1,6 @@
-# 参考：https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
-# 仓库 Settings → Pages → Source 必须选「GitHub Actions」
+# 使用 gh-pages 分支发布（与 Settings → Pages → Deploy from a branch 一致，避免 deploy-pages 未生效时整站 404）
+# 推送成功后请到：Settings → Pages → Build and deployment → Source 选「Deploy from a branch」
+# Branch 选 gh-pages，Folder 选 / (root)，保存。
 name: Deploy GitHub Pages
 
 on:
@@ -8,21 +9,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: pages-branch-deploy
   cancel-in-progress: false
 
 jobs:
-  # 构建 + 上传 + 部署放在同一 job，与官方「自定义构建」示例一致，避免 artifact 在 job 间传递异常
-  github-pages:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,23 +36,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Astro site
+      - name: Build
         run: |
           pnpm run build
           test -f dist/index.html || { echo "missing dist/index.html"; exit 1; }
+          ls -la dist | head -20
 
-      - name: Add .nojekyll
+      - name: Ensure Jekyll is off (static + _astro)
         run: touch dist/.nojekyll
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+      - name: Push dist to gh-pages branch
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: dist
-          include-hidden-files: true
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+          branch: gh-pages
+          folder: dist
+          clean: true
