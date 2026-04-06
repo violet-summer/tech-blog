@@ -67,7 +67,7 @@ export const siteConfig: SiteConfig = {
 		// { type: "image", value: "https://example.com/logo.png", alt: "Firefly Logo" }
 		logo: {
 			type: "image",
-			value: "/assets/images/firefly.png",
+			value: "/assets/images/violet1.png",
 			alt: "🍀",
 		},
 		// 导航栏标题

@@ -8,9 +8,9 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 	// 背景图片配置
 	src: {
 		// 桌面背景图片
-		desktop: "/assets/images/d1.webp",
+		desktop: "/assets/images/violet3.jpg",
 		// 移动背景图片
-		mobile: "/assets/images/m1.webp",
+		mobile: "/assets/images/violet4.jpg",
 	},
 	// Banner模式特有配置
 	banner: {
@@ -54,22 +54,16 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		// 图片来源
 		credit: {
 			enable: {
-				// 桌面端显示横幅图片来源文本
-				desktop: true,
-				// 移动端显示横幅图片来源文本
-				mobile: true,
+				desktop: false,
+				mobile: false,
 			},
 			text: {
-				// 桌面端要显示的来源文本
-				desktop: "Pixiv - 晚晚喵",
-				// 移动端要显示的来源文本
-				mobile: "Pixiv - KiraraShss",
+				desktop: "",
+				mobile: "",
 			},
 			url: {
-				// 桌面端原始艺术品或艺术家页面的 URL 链接
-				desktop: "https://www.pixiv.net/artworks/135490046",
-				// 移动端原始艺术品或艺术家页面的 URL 链接
-				mobile: "https://www.pixiv.net/users/42715864",
+				desktop: "",
+				mobile: "",
 			},
 		},
 		// 横幅导航栏配置
