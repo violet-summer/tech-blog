@@ -7,10 +7,10 @@ const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "Firefly",
+	title: "Violet-Summer",
 
 	// 站点副标题
-	subtitle: "Demo site",
+	subtitle: "Personal Tech Blog",
 
 	// 站点 URL
 	site_url: "https://violet-summer.github.io",
