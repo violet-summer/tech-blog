@@ -10,6 +10,8 @@ category: 开发工具链
 draft: false
 ---
 
+# CMake使用教程和踩坑
+
 CMake 不是编译器，而是**构建系统生成器**。它的作用是把统一的项目描述（`CMakeLists.txt`）转换为平台可执行的构建脚本（如 Makefile、Ninja、Visual Studio 工程）。
 
 如果你希望 C/C++ 项目做到跨平台、可维护、便于协作，CMake 几乎是必选项。
