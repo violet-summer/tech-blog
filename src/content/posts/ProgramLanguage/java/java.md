@@ -7,7 +7,7 @@ tags:
   - java
 category: 编程基础
 draft: false
-image: '/violet.png'
+image: ""
 ---
 
 # 导读

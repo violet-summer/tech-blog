@@ -8,7 +8,7 @@ tags:
   - 前端工程化
 category: 编程基础
 draft: false
-image: '/violet.png'
+image: ""
 ---
 
 # Vite 使用手册
