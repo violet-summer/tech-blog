@@ -8,7 +8,8 @@ tags:
   - 算法
 category: 编程基础
 draft: false
-image: '/violet.png'
+image: ""
+pinned: false
 ---
 
 # 算法题复盘笔记（一）

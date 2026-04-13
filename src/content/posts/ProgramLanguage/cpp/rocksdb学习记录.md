@@ -8,7 +8,8 @@ tags:
   - rocksdb
 category: 编程基础
 draft: false
-image: '/violet.png'
+image: ""
+pinned: false
 ---
 
 # RocksDB 学习记录
