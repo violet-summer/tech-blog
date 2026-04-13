@@ -2,6 +2,7 @@
 title: CMake 从入门到工程化实践
 published: 2026-04-13
 updated: 2026-04-13
+image: ""
 description: "围绕 C/C++ 项目构建，梳理 CMake 的核心概念、常用指令和跨平台组织方式。"
 tags: [DevToolchain, CMake, Cpp]
 category: 开发工具链
