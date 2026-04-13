@@ -5,7 +5,7 @@ updated: 2026-04-13
 description: "围绕 C/C++ 项目构建，梳理 CMake 的核心概念、常用指令和跨平台组织方式。"
 tags: [DevToolchain, CMake, Cpp]
 category: 开发工具链
-draft: true
+draft: false
 ---
 
 CMake 不是编译器，而是**构建系统生成器**。它的作用是把统一的项目描述（`CMakeLists.txt`）转换为平台可执行的构建脚本（如 Makefile、Ninja、Visual Studio 工程）。

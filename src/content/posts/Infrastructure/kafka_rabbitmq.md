@@ -6,7 +6,7 @@ description: "web系统中对于队列中间件的使用"
 image: "/assets/content/Infrastructure/1.svg"
 tags: [Infrastructure,BackEnd]
 category: "后端基础设施"
-draft: true
+draft: false
 ---
 
 ## 引入原因
